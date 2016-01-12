@@ -18,7 +18,7 @@
       // To get started with this tutorial running your own code, simply remove
       // the script tag loading scripts/example.js and start writing code here.
       
-      //tutorial 14
+      //tutorial 18
       var CommentBox = React.createClass({
         loadCommentsFromServer: function() { //automatically called by React after a component is rendered for the first time
           $.ajax({
@@ -33,6 +33,9 @@
             }.bind(this)
           });
         },
+        handleCommentSubmit: function(comment) {
+          // TODO: submit to the server and refresh the list
+        },
         getInitialState: function() {
           return {data: []};
         },
@@ -45,7 +48,7 @@
             <div className="commentBox">
               <h1>Comments</h1>
               <CommentList data={this.state.data} />
-              <CommentForm />
+              <CommentForm onCommentSubmit={this.handleCommentSubmit} />
             </div>
           );
         }
@@ -81,7 +84,7 @@
           this.setState({text: e.target.value});
         },
         handleSubmit: function(e) {
-          e.preventDefault();
+          e.preventDefault(); //to prevent the browser's default action of submitting the form.
           var author = this.state.author.trim();
           var text = this.state.text.trim();
           if (!text || !author) {
